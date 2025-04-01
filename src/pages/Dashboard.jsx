@@ -45,7 +45,7 @@ const StatCard = styled.div`
   }
 `;
 
-function Dashboard() {
+const Dashboard = () => {
   return (
     <DashboardContainer>
       <Header>
@@ -74,43 +74,6 @@ function Dashboard() {
       <ProductList title="Recent Products" />
     </DashboardContainer>
   );
-}
+};
 
 export default Dashboard;
-
-import { createContext, useState, useContext } from 'react';
-
-const AuthContext = createContext(null);
-
-export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return localStorage.getItem('isAuthenticated') === 'true';
-  });
-
-  const login = () => {
-    setIsAuthenticated(true);
-    localStorage.setItem('isAuthenticated', 'true');
-  };
-
-  const logout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem('isAuthenticated');
-  };
-
-  return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-// Export the hook
-const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
-
-export { useAuth };

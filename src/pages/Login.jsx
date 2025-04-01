@@ -189,7 +189,10 @@ const SocialButton = styled.button`
 
 const IllustrationContainer = styled.div`
   flex: 1;
-  background: #064e3b;
+  background: url('/src/assets/images/fondo1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-radius: 0 12px 12px 0;
   display: flex;
   align-items: center;
