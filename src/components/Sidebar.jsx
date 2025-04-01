@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import {
@@ -10,12 +9,11 @@ import {
   BellIcon,
   QuestionMarkCircleIcon,
   Cog6ToothIcon,
-  RocketLaunchIcon,
-  Bars3Icon
+  RocketLaunchIcon
 } from '@heroicons/react/24/outline';
 
-const SidebarContainer = styled.div`
-  width: ${props => props.isCollapsed ? '64px' : '260px'};
+export const SidebarContainer = styled.div`
+  width: 64px;
   height: 100vh;
   background: #1A1C1E;
   padding: 20px 12px;
@@ -26,31 +24,20 @@ const SidebarContainer = styled.div`
   top: 0;
   transition: width 0.3s ease;
   overflow-x: hidden;
-`;
 
-const ToggleButton = styled.button`
-  position: absolute;
-  right: -12px;
-  top: 20px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #1A1C1E;
-  border: none;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
-  transform: ${props => props.isCollapsed ? 'rotate(180deg)' : 'rotate(0)'};
-  z-index: 10;
+  &:hover {
+    width: 260px;
+  }
 `;
 
 const MenuText = styled.span`
-  opacity: ${props => props.isCollapsed ? '0' : '1'};
+  opacity: 0;
   transition: opacity 0.2s ease;
   white-space: nowrap;
+
+  ${SidebarContainer}:hover & {
+    opacity: 1;
+  }
 `;
 
 const Logo = styled.div`
@@ -64,6 +51,12 @@ const Logo = styled.div`
 
 const SearchBar = styled.div`
   margin-bottom: 20px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  
+  ${SidebarContainer}:hover & {
+    opacity: 1;
+  }
   
   input {
     width: 100%;
@@ -111,8 +104,12 @@ const UserProfile = styled.div`
   gap: 12px;
   padding: 12px;
   color: white;
-  opacity: ${props => props.isCollapsed ? '0' : '1'};
+  opacity: 0;
   transition: opacity 0.2s ease;
+
+  ${SidebarContainer}:hover & {
+    opacity: 1;
+  }
 
   img {
     width: 32px;
@@ -141,8 +138,12 @@ const NotificationBadge = styled.span`
   padding: 2px 8px;
   border-radius: 12px;
   font-size: 0.75rem;
-  opacity: ${props => props.isCollapsed ? '0' : '1'};
+  opacity: 0;
   transition: opacity 0.2s ease;
+
+  ${SidebarContainer}:hover & {
+    opacity: 1;
+  }
 `;
 
 const IconWrapper = styled.div`
@@ -159,26 +160,17 @@ const IconWrapper = styled.div`
 `;
 
 const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
   return (
-    <SidebarContainer isCollapsed={isCollapsed}>
-      <ToggleButton 
-        isCollapsed={isCollapsed}
-        onClick={() => setIsCollapsed(!isCollapsed)}
-      >
-        <Bars3Icon width={16} />
-      </ToggleButton>
-
+    <SidebarContainer>
       <Logo>
         <IconWrapper>
           <RocketLaunchIcon />
         </IconWrapper>
-        <MenuText isCollapsed={isCollapsed}>Untitled</MenuText>
+        <MenuText>Untitled</MenuText>
       </Logo>
 
       <SearchBar>
-        {!isCollapsed && <input type="text" placeholder="Search" />}
+        <input type="text" placeholder="Search" />
       </SearchBar>
 
       <MenuSection>
@@ -186,31 +178,31 @@ const Sidebar = () => {
           <IconWrapper>
             <HomeIcon />
           </IconWrapper>
-          <MenuText isCollapsed={isCollapsed}>Home</MenuText>
+          <MenuText>Home</MenuText>
         </MenuItem>
         <MenuItem to="/dashboard">
           <IconWrapper>
             <ChartBarIcon />
           </IconWrapper>
-          <MenuText isCollapsed={isCollapsed}>Dashboard</MenuText>
+          <MenuText>Dashboard</MenuText>
         </MenuItem>
         <MenuItem to="/projects">
           <IconWrapper>
             <FolderIcon />
           </IconWrapper>
-          <MenuText isCollapsed={isCollapsed}>Projects</MenuText>
+          <MenuText>Projects</MenuText>
         </MenuItem>
         <MenuItem to="/tasks">
           <IconWrapper>
             <CheckCircleIcon />
           </IconWrapper>
-          <MenuText isCollapsed={isCollapsed}>Tasks</MenuText>
+          <MenuText>Tasks</MenuText>
         </MenuItem>
         <MenuItem to="/reporting">
           <IconWrapper>
             <ChartPieIcon />
           </IconWrapper>
-          <MenuText isCollapsed={isCollapsed}>Reporting</MenuText>
+          <MenuText>Reporting</MenuText>
         </MenuItem>
       </MenuSection>
 
@@ -219,23 +211,23 @@ const Sidebar = () => {
           <IconWrapper>
             <BellIcon />
           </IconWrapper>
-          <MenuText isCollapsed={isCollapsed}>Notification</MenuText>
-          <NotificationBadge isCollapsed={isCollapsed}>12</NotificationBadge>
+          <MenuText>Notification</MenuText>
+          <NotificationBadge>12</NotificationBadge>
         </MenuItem>
         <MenuItem to="/support">
           <IconWrapper>
             <QuestionMarkCircleIcon />
           </IconWrapper>
-          <MenuText isCollapsed={isCollapsed}>Support</MenuText>
+          <MenuText>Support</MenuText>
         </MenuItem>
         <MenuItem to="/settings">
           <IconWrapper>
             <Cog6ToothIcon />
           </IconWrapper>
-          <MenuText isCollapsed={isCollapsed}>Settings</MenuText>
+          <MenuText>Settings</MenuText>
         </MenuItem>
 
-        <UserProfile isCollapsed={isCollapsed}>
+        <UserProfile>
           <img src="https://via.placeholder.com/32" alt="User" />
           <div className="user-info">
             <div className="name">Brooklyn Simmons</div>

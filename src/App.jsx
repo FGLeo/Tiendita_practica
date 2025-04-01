@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './context/AuthContext';
 import { useAuth } from './context/AuthContext';
 import styled from 'styled-components';
-import Sidebar from './components/Sidebar';
+import Sidebar, { SidebarContainer } from './components/Sidebar';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
@@ -13,9 +13,16 @@ const Layout = styled.div`
 `;
 
 const MainContent = styled.main`
-  flex: 1;
-  margin-left: 260px;
+  margin-left: 64px;
   padding: 20px;
+  flex: 1;
+  transition: margin-left 0.3s ease;
+  width: calc(100% - 64px);
+
+  ${SidebarContainer}:hover + & {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+  }
 `;
 
 const ProtectedRoute = ({ children }) => {
